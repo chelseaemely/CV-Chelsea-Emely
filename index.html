@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chelsea Emely Mawikere | Digital Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #f8bbd0;
+            --soft-pink: #fce4ec;
+            --dark-pink: #f06292;
+            --accent-pink: #ff80ab;
+            --text-main: #5d4037;
+            --bg-light: #fff9fb;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-light); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+
+     
+        #cursor { width: 20px; height: 20px; background: var(--dark-pink); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; transition: transform 0.1s ease; opacity: 0.6; }
+
+       
+        .sparkle { position: fixed; background: var(--primary-pink); border-radius: 50%; pointer-events: none; z-index: -1; animation: sparkleAnim 3s linear infinite; }
+        @keyframes sparkleAnim { 0% { transform: scale(0) translateY(0); opacity: 0; } 50% { opacity: 0.8; } 100% { transform: scale(1.5) translateY(-100px); opacity: 0; } }
+
+     
+        nav { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 1000px; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(15px); z-index: 1000; border-radius: 50px; box-shadow: 0 10px 30px rgba(240, 98, 146, 0.1); border: 1px solid rgba(255, 255, 255, 0.5); }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--dark-pink); font-weight: bold; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 20px; }
+        nav ul li a { text-decoration: none; color: var(--text-main); font-weight: 500; font-size: 0.9rem; transition: 0.3s; padding: 5px 15px; border-radius: 20px; }
+        nav ul li a:hover { background: var(--primary-pink); color: white; }
+
+       
+        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; background: radial-gradient(circle at center, var(--soft-pink) 0%, var(--bg-light) 100%); }
+        .profile-wrapper { position: relative; margin-bottom: 30px; }
+        .profile-img { width: 200px; height: 200px; border-radius: 50%; border: 10px solid var(--white); box-shadow: 0 15px 45px rgba(240, 98, 146, 0.2); object-fit: cover; animation: float 4s ease-in-out infinite; }
+        .emoji-float { position: absolute; font-size: 2rem; animation: bounce 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(15deg); } }
+        h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 10px; color: #333; }
+        .subtitle { font-size: 1.2rem; color: var(--dark-pink); font-weight: 600; background: var(--white); padding: 5px 20px; border-radius: 50px; display: inline-block; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+
+       
+        section { padding: 80px 10%; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 60px; text-align: center; color: var(--dark-pink); }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+
+    
+        .card { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px); padding: 25px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 10px 30px rgba(0,0,0,0.02); transition: 0.4s; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        .card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.9); box-shadow: 0 20px 50px rgba(240, 98, 146, 0.15); }
+        .card h3 { color: var(--dark-pink); margin-bottom: 8px; font-size: 1rem; line-height: 1.3; display: flex; align-items: center; gap: 8px; }
+        .card .date { font-size: 0.7rem; background: var(--soft-pink); padding: 2px 10px; border-radius: 10px; margin-bottom: 10px; align-self: flex-start; font-weight: 600; color: var(--dark-pink); }
+        .card .org { font-size: 0.85rem; font-weight: 600; color: #777; margin-bottom: 5px; }
+        .card p.desc { font-size: 0.8rem; color: #666; }
+        .view-proof { margin-top: 15px; font-size: 0.75rem; color: var(--accent-pink); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+      
+        .modal { display: none; position: fixed; z-index: 10001; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(93, 64, 55, 0.8); backdrop-filter: blur(8px); justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background-color: white; padding: 30px; border-radius: 35px; max-width: 900px; width: 100%; max-height: 90vh; text-align: center; position: relative; animation: modalZoom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); overflow-y: auto; }
+        @keyframes modalZoom { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-content img { width: 100%; height: auto; border-radius: 20px; margin-bottom: 20px; border: 5px solid var(--soft-pink); }
+        .close-modal { position: absolute; top: 20px; right: 30px; font-size: 35px; color: var(--dark-pink); font-weight: bold; transition: 0.3s; }
+        .close-modal:hover { transform: rotate(90deg); color: var(--accent-pink); }
+
+     
+        .skill-tag { display: inline-block; background: white; border: 1.5px solid var(--primary-pink); padding: 8px 20px; border-radius: 25px; margin: 8px; font-size: 0.9rem; font-weight: 500; color: var(--text-main); }
+
+        footer { padding: 80px 20px; background: var(--soft-pink); text-align: center; border-radius: 50px 50px 0 0; }
+        .social-btn { display: inline-block; padding: 12px 30px; margin: 10px; background: var(--white); border-radius: 50px; text-decoration: none; color: var(--dark-pink); font-weight: 600; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .social-btn:hover { background: var(--dark-pink); color: white; transform: translateY(-5px); }
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) { h1 { font-size: 2.5rem; } nav ul { display: none; } section { padding: 60px 5%; } #cursor { display: none; } * { cursor: auto; } }
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+
+   
+    <div id="proofModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div id="imageContainer" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+            <img id="modalImg1" src="" alt="Bukti 1" style="max-width: 45%; height: auto; border-radius: 15px; border: 3px solid var(--soft-pink);">
+            <img id="modalImg2" src="" alt="Bukti 2" style="max-width: 45%; height: auto; border-radius: 15px; border: 3px solid var(--soft-pink);">
+        </div>
+        <h3 id="modalTitle" style="color: var(--dark-pink); font-family: 'Playfair Display', serif; font-size: 1.8rem;"> Judul </h3>
+        <p id="modalDesc" style="font-size: 1rem; color: #5d4037; line-height: 1.6; margin-top: 15px;"> Deskripsi </p>
+    </div>
+</div>
+
+    <nav>
+        <div class="logo">Curriculum Vitae✨</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#journey">Journey</a></li>
+            <li><a href="#skills">Skills & Certs</a></li>
+            <li><a href="#education">Education</a></li>
+        </ul>
+    </nav>
+
+    <header id="home">
+        <div class="profile-wrapper">
+            <span class="emoji-float" style="top: -20px; left: -30px;">🌸</span>
+            <span class="emoji-float" style="bottom: 0px; right: -40px;">💫</span>
+            <img src="https://lh3.googleusercontent.com/d/1coHK4y26xV40DYkOere_f8KYOwrqGq0C" alt="Chelsea_Emely" class="profile-img">
+        </div>
+        <h1>Hi, I'm Chelsea Emely Mawikere!</h1>
+        <p class="subtitle">Google Student Ambassador & UI/UX Enthusiast</p>
+<div style="margin-top: 15px;">
+    <p class="subtitle" style="background: var(--dark-pink); color: var(--white); font-size: 0.9rem;">
+        Bekasi, 22 November 2005
+    </p>
+</div>
+    </header>
+    
+
+   
+    <section id="journey" class="reveal">
+        <h2 class="section-title">My Journey 🧸</h2>
+        <div class="grid-container">
+           
+            <div class="card" onclick="openModal('https://lh3.googleusercontent.com/d/1M2ADe-0VJtVMB76W1zshR3ssu1TpkKhM', 'https://lh3.googleusercontent.com/d/13FFt800mqMj4zyriuupsK_xp1mnnkUcG', 'Google Student Ambassador', 
+    'Seleksi Nasional: Terpilih dari 12.000+ pendaftar (1/800 GSA).\n' +
+    'Pemenang Challenge: Menang video Bootcamp with FROG (Dosen Traveler).\n' +
+    'Edukasi AI: Workshop Gemini AI untuk 200+ mahasiswa bersama tim Google.\n' +
+    'Gemini Achiever: Masuk Top 20 Tier nasional.\n' +
+    'Pelatihan: Free akses Dicoding & Workshop Gemini 3 Google.\n' +
+    'Delegasi Jakarta: Workshop di Kantor Google & Graduation di Ciputra Artpreneur.')">
+    <span class="date">Oct 2025 - Present</span>
+    <p class="org">Google Indonesia</p>
+    <h3><span>🚀</span> Google Student Ambassador</h3>
+    <p class="desc">Membawa inovasi Google & AI ke kampus melalui workshop seru.</p>
+    <p class="view-proof">Lihat Bukti ✨</p>
+</div>
+
+          
+            <div class="card" onclick="openModal('https://lh3.googleusercontent.com/d/1sxCLVBoAk7fxq1I4vljTO0aEmAytvYF5', 'https://lh3.googleusercontent.com/d/1K7CwW_cdAErKdbOj3YlC5x3JAX4S5nZh','Staff KOMINFO - BEM FMIPA', 
+    'Manajemen Media: Mengelola platform media sosial dan website resmi organisasi secara aktif.\n' +
+    'Konten Kreatif: Memproduksi konten informatif berupa poster, video, dan infografis publikasi.\n' +
+    'Koordinator PDD: Menjadi Head of Documentation & Operator pada PKKMB FMIPA UNSRAT 2025.\n' +
+    'Staff Publikasi: Bertanggung jawab atas dokumentasi dan visual branding pada event Mipa Berkompetisi 2025.\n' +
+    'Bakti Sosial: Staff PDD dalam kegiatan Mipa Caring 2025 untuk dokumentasi aksi sosial.')">
+    <span class="date">Feb 2025 - 2026</span>
+    <p class="org">BEM FMIPA UNSRAT</p>
+    <h3><span>📢</span> Staff KOMINFO</h3>
+    <p class="desc">Mengelola media digital dan menjadi koordinator dokumentasi event fakultas.</p>
+    <p class="view-proof">Lihat Bukti ✨</p>
+</div>
+
+        
+            <div class="card" onclick="openModal('https://lh3.googleusercontent.com/d/1MVkj3Y2aNE5K1AetaP1cjq8UJ4w9c26S', 'https://lh3.googleusercontent.com/d/1o1QqCVqC83glk6SMgbzbttX8uxTRov2U', 'Multimedia & Jurnalistik - HIMSIFOR', 
+    'Multimedia & Jurnalistik: Mengelola channel komunikasi dan menciptakan konten visual kreatif untuk promosi organisasi.\n' +
+    'Staff PDD OATH 2024: Bertanggung jawab atas dokumentasi dan publikasi pada rangkaian acara OATH 2024.\n' +
+    'Staff Seksi Acara SIBER 2024: Menyusun rundown dan mengoordinasi jalannya teknis acara pada kompetisi SIBER 2024.')">
+    <span class="date">Feb 2025 - Feb 2026</span>
+    <p class="org">HIMSIFOR FMIPA UNSRAT</p>
+    <h3><span>📸</span> Multimedia & Jurnalistik</h3>
+    <p class="desc">Mengelola konten visual organisasi dan aktif sebagai staf acara serta dokumentasi.</p>
+    <p class="view-proof">Lihat Bukti ✨</p>
+</div>
+
+       
+            <div class="card" onclick="openModal('https://lh3.googleusercontent.com/d/1relqlJ36Y5CbLAQaLqvVn7j5g1Hiy06_', 'https://lh3.googleusercontent.com/d/1sTJa42VMBMgVRvv3o4xb7-PFpDyl9wKy' ,'UI/UX Division', 'Melakukan riset pengguna (user research) untuk memahami kebutuhan target user dan berkontribusi dalam diskusi desain solusi teknologi.')">
+                <span class="date">Mar 2025 - Present</span>
+                <p class="org">UKM UNITY UNSRAT</p>
+                <h3><span>✨</span> UI/UX Division</h3>
+                <p class="desc">Melakukan riset pengguna (user research) untuk solusi teknologi.</p>
+                <p class="view-proof">Lihat Bukti ✨</p>
+            </div>
+
+          
+            <div class="card" onclick="openModal('https://lh3.googleusercontent.com/d/1tfYYt4j_-n8NnmfjMJe5UeN_4aiKkkd7', 'https://lh3.googleusercontent.com/d/1eC4woegIK3BMLf1LIfjTbKhvj3ez_Plc', 'Manager Creative Marketing - YRI Sulawesi', 
+    'Brand Identity: Mengelola identitas visual organisasi dengan desain modern dan memastikan output kreatif berkualitas tinggi.\n' +
+    'Project Lead: Menyelenggarakan Webinar UI/UX Design yang sukses menarik partisipasi aktif dari 70+ peserta.\n' +
+    'Monitoring & Evaluation: Melakukan pemantauan dan evaluasi rutin kepada tim kreatif YRI Regional Sulut, Sulsel, dan Sulteng.\n' +
+    'Team Leadership: Memimpin koordinasi antar wilayah untuk sinkronisasi konten promosi dan kampanye kepemudaan.')">
+    <span class="date">Dec 2024 - Dec 2025</span>
+    <p class="org">Youth Ranger Indonesia Sulawesi</p>
+    <h3><span>🎨</span> Creative Manager</h3>
+    <p class="desc">Memimpin tim kreatif regional dan sukses menyelenggarakan webinar desain.</p>
+    <p class="view-proof">Lihat Bukti ✨</p>
+</div>
+
+           
+            <div class="card" onclick="openModal('https://lh3.googleusercontent.com/d/16p8-dplCd4TdLOY8PAtULe8IIUol6tLn', 'https://lh3.googleusercontent.com/d/1jqG85y9HpHjxF0JJsHGMLVor2nnvSRu8', 'Safety & Standardization', 'Mengolah data penerbangan tahunan menjadi visualisasi grafik yang mudah dipahami serta mempelajari dasar SOP perusahaan.')">
+                <span class="date">Jan 2025</span>
+                <p class="org">AirNav Indonesia (Perum LPPNPI)</p>
+                <h3><span>✈️</span> Safety & Standardization</h3>
+                <p class="desc">Mengolah data penerbangan tahunan menjadi visualisasi grafik.</p>
+                <p class="view-proof">Lihat Bukti ✨</p>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="skills" class="reveal" style="background: white; border-radius: 60px;">
+        <h2 class="section-title">Certificates & Skills 🎀</h2>
+        
+        
+        <div style="text-align: center; margin-bottom: 60px; max-width: 900px; margin-left: auto; margin-right: auto;">
+            <div class="skill-tag">UI/UX Design</div>
+            <div class="skill-tag">Microsoft Office</div>
+            <div class="skill-tag">Digital Marketing</div>
+            <div class="skill-tag">Graphic Design</div>
+            <div class="skill-tag">Project Management</div>
+            <div class="skill-tag">Public Speaking</div>
+        </div>
+
+       
+        <div class="grid-container">
+            <div class="card" onclick="openModal('https://lh3.googleusercontent.com/d/1E01jQSwTWUmgQxcg1ioiJETjHyigmZLq', 'https://lh3.googleusercontent.com/d/15Cy_rL5nSjSit_iOacgsZMevVdm2aG8i', 'From Basics to Breakthroughs in AI oleh KUMPUL ID.')">
+                <span class="date">2025</span>
+                <h3>🤖 AI Ignition Training</h3>
+                <p>KUMPUL ID</p>
+                <p class="view-proof">Sertifikat 📜</p>
+            </div>
+            <div class="card" onclick="openModal('https://lh3.googleusercontent.com/d/1RbmWAKSegQU7br81kMt6NeqOnqF3CZG4', 'https://lh3.googleusercontent.com/d/1xWmMCk2hI3SoYSjaM1KP_QQVa4GEXdA2', 'Google Cloud Partner & Dicoding.')">
+                <span class="date">2025</span>
+                <h3>☁️ Belajar Dasar AI</h3>
+                <p>Dicoding & Google Cloud</p>
+                <p class="view-proof">Sertifikat 📜</p>
+            </div>
+            <div class="card" onclick="openModal('https://lh3.googleusercontent.com/d/1fBfRQ7Gq_8iUmGbJllYk4KeTTA9tP0lG', 'https://lh3.googleusercontent.com/d/17uOj_DSeRTmu-8gtiAWYhmVm6ymYZ29v', 'Strategi Personal Branding dan Kewirausahaan di era Digital oleh Novo Club.')">
+                <span class="date">2025</span>
+                <h3>🎨 Personal Branding</h3>
+                <p>Novo Club</p>
+                <p class="view-proof">Sertifikat 📜</p>
+            </div>
+            <div class="card" onclick="openModal('https://lh3.googleusercontent.com/d/1mqnpNXdqmNntxU1ra3CqZMGWRCB059pn', 'https://lh3.googleusercontent.com/d/1eC4woegIK3BMLf1LIfjTbKhvj3ez_Plc', 'Design Your Click (UI/UX)', 'Webinar SKETSA: Skill Kreatif dan Eksplorasi Seni Desain untuk Pemula.')">
+                <span class="date">2025</span>
+                <h3>✨ Design Your Click (UI/UX)</h3>
+                <p>Supervisory Committee</p>
+                <p class="view-proof">Sertifikat 📜</p>
+            </div>
+            <div class="card" onclick="openModal('https://lh3.googleusercontent.com/d/1MI-59jAFGlA_ya5HEj6LMpgAGYhZYzRC','' , '16th SATU Indonesia Awards', 'Bincang Inspiratif Satukan Gerak, Terus Berdampak.')">
+                <span class="date">2025</span>
+                <h3>🌟 SATU Indonesia Awards</h3>
+                <p>Young On Top</p>
+                <p class="view-proof">Sertifikat 📜</p>
+            </div>
+            <div class="card" onclick="openModal('https://lh3.googleusercontent.com/d/19zfuV0z3IVzgfztSUx7mFj6SkbMugXGT', '', 'Huawei ICT Academy Student Operation Guide.')">
+                <span class="date">2024</span>
+                <h3>🌐 Huawei ICT Academy</h3>
+                <p>Huawei</p>
+                <p class="view-proof">Sertifikat 📜</p>
+            </div>
+            <div class="card" onclick="openModal('https://lh3.googleusercontent.com/d/1aBZLrJCrQPsplTV3BWTh6RagwPdeTk4g', 'https://lh3.googleusercontent.com/d/1KyStwDzczC6uzYUJredWIbdQe20F0a6I', 'Google AI Sebagai Asisten Inovatif dalam Edukasi dan Karier.')">
+                <span class="date">2025</span>
+                <h3>💡 GSA AI Mini Bootcamp</h3>
+                <p>Friends Of Google</p>
+                <p class="view-proof">Sertifikat 📜</p>
+            </div>
+            <div class="card" onclick="openModal('https://lh3.googleusercontent.com/d/1kymubNeqZx2FqjX4beMZ3GYJy_V3GBWP', 'https://lh3.googleusercontent.com/d/1WJRMyEfhY2E0gvD4KQ9Mu_DyN4MYCTmq', 'Digital Entrepreneurship Academy (Madya 1) - BPSDMP Manado.')">
+                <span class="date">2024</span>
+                <h3>💼 Manajemen Bisnis</h3>
+                <p>BPSDMP Manado</p>
+                <p class="view-proof">Sertifikat 📜</p>
+            </div>
+            <div class="card" onclick="openModal('https://lh3.googleusercontent.com/d/1ed-2kMfKo1sGklSmrL_pAA0xTaurqEUV', '', '', 'Sertifikasi resmi dari KOMDIGI tahun 2025 yang memvalidasi pemahaman dasar keamanan siber dan kesadaran karier di industri teknologi.')">
+    <span class="date">Nov 2025</span>
+    <p class="org">KOMDIGI - Digital Talent Scholarship</p>
+    <h3><span>🛡️</span> Cyber Security Awareness</h3>
+    <p class="desc">Memahami fondasi keamanan siber dan prospek karier digital.</p>
+    <p class="view-proof">Lihat Sertifikat 📜</p>
+</div>
+            
+            </div>
+        </div>
+    </section>
+
+   
+    <section id="education" class="reveal">
+        <h2 class="section-title">Studies 📚</h2>
+        <div class="grid-container">
+            <div class="card" style="border-left: 8px solid var(--dark-pink);">
+                <span class="date">2023 - Sekarang</span>
+                <h3>Universitas Sam Ratulangi</h3>
+                <p>Sistem Informasi </p>
+            </div>
+            <div class="card" style="border-left: 8px solid var(--primary-pink);">
+                <span class="date">2020 - 2023</span>
+                <h3>SMAN 8 Manado</h3>
+                <p>Jurusan IPA </p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 30px; color: var(--dark-pink);">Let's talk! ☁️</h2>
+        <div style="margin-bottom: 30px;">
+            <a href="mailto:chelseaemelymawikere@gmail.com" class="social-btn">Email</a>
+            <a href="https://www.linkedin.com/in/chelseaemely/" class="social-btn" target="_blank">LinkedIn</a>
+            <a href="https://bit.ly/PortofolioChelseaMawikere" class="social-btn" target="_blank">Portfolio</a>
+        </div>
+        <p style="font-size: 0.85rem; opacity: 0.6; color: var(--text-main);">Made by Chllsyc 💖</p>
+    </footer>
+
+    <script>
+        
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+      
+        const modal = document.getElementById("proofModal");
+        const modalImg = document.getElementById("modalImg");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalDesc = document.getElementById("modalDesc");
+        const closeBtn = document.querySelector(".close-modal");
+
+        function openModal(imgSrc1, imgSrc2, title, desc) {
+    const modal = document.getElementById("proofModal");
+    const img1 = document.getElementById("modalImg1");
+    const img2 = document.getElementById("modalImg2");
+    
+    modal.style.display = "flex";
+    img1.src = imgSrc1;
+    
+    // Jika ada foto kedua, tampilkan. Jika tidak, sembunyikan img2
+    if (imgSrc2) {
+        img2.src = imgSrc2;
+        img2.style.display = "block";
+        img1.style.maxWidth = "45%"; 
+    } else {
+        img2.style.display = "none";
+        img1.style.maxWidth = "80%"; 
+    }
+
+    document.getElementById("modalTitle").innerText = title;
+
+   
+    const points = desc.split('\n');
+    let listHtml = '<ul style="text-align: left; display: inline-block; list-style-type: disc; margin-top: 10px;">';
+    points.forEach(point => {
+        if(point.trim() !== "") {
+            listHtml += `<li style="margin-bottom: 5px;">${point}</li>`;
+        }
+    });
+    listHtml += '</ul>';
+    
+    document.getElementById("modalDesc").innerHTML = listHtml;
+    document.body.style.overflow = "hidden";
+}
+        closeBtn.onclick = () => {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        };
+
+        window.onclick = (event) => {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        };
+
+       
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            const size = Math.random() * 8 + 4;
+            sparkle.style.width = size + 'px';
+            sparkle.style.height = size + 'px';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 3000);
+        }
+        setInterval(createSparkle, 600);
+
+        
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                if (reveals[i].getBoundingClientRect().top < window.innerHeight - 100) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        window.onload = reveal;
+
+     
+        document.querySelectorAll('a, button, .card').forEach(elem => {
+            elem.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(2.5)';
+                cursor.style.background = 'rgba(240, 98, 146, 0.2)';
+                cursor.style.border = '1px solid var(--dark-pink)';
+            });
+            elem.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.background = 'var(--dark-pink)';
+                cursor.style.border = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
